@@ -39,9 +39,6 @@ export default function InteractionForm() {
   }, []);
 
   useEffect(() => {
-    console.log("Extracted Data:", extractedData);
-    console.log("HCP List:", hcps);
-
     if (!extractedData || hcps.length === 0) return;
 
     setForm(prev => {
@@ -102,21 +99,12 @@ export default function InteractionForm() {
           );
         });
 
-        console.log("AI Name:", aiName);
-        console.log("Matched:", matched);
-
         if (matched) {
           updated.hcp_id = matched.id;
-          console.log("Selected ID:", matched.id);
 
           setTimeout(() => {
             dispatch(clearExtractedData());
           }, 200);
-        } else {
-          console.log(
-            "Available HCPs:",
-            hcps.map(h => h.name)
-          );
         }
 
         delete updated.hcp_name;
@@ -154,11 +142,6 @@ export default function InteractionForm() {
     );
   }, [hcpOptions, form.hcp_id]);
 
-  console.log("form.hcp_id:", form.hcp_id);
-  console.log("selectedOption:", selectedOption);
-
-
-
   const submit = async (e) => {
     e.preventDefault();
 
@@ -195,7 +178,7 @@ export default function InteractionForm() {
         status: "Pending",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Failed");
     }
   };
