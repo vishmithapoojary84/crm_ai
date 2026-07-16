@@ -9,6 +9,7 @@ import {
 
 export default function ChatBox() {
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ export default function ChatBox() {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -37,6 +38,8 @@ export default function ChatBox() {
     );
 
     setInput("");
+
+    setIsLoading(true);
 
     try {
       const res = await client.post("/chat/", {
@@ -63,6 +66,8 @@ export default function ChatBox() {
             "Unable to connect to AI Assistant.",
         })
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -138,8 +143,8 @@ export default function ChatBox() {
             <div
               className={`max-w-[88%] px-4 py-3 text-[13px] leading-6 ${
                 msg.role === "user"
-                  ? "bg-[#0052FF] text-white rounded-2xl rounded-br-md"
-                  : "border border-[#e5e7eb] bg-white text-[#444] rounded-2xl rounded-bl-md"
+                  ? "bg-[#0052FF] text-white rounded-2xl rounded-br-md whitespace-pre-wrap"
+                  : "border border-[#e5e7eb] bg-white text-[#444] rounded-2xl rounded-bl-md whitespace-pre-wrap"
               }`}
             >
               {msg.content}
@@ -148,6 +153,16 @@ export default function ChatBox() {
           </div>
 
         ))}
+
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="max-w-[88%] px-4 py-4 bg-white border border-[#e5e7eb] rounded-2xl rounded-bl-md flex gap-1.5 items-center h-[46px]">
+              <span className="w-1.5 h-1.5 bg-[#9ca3af] rounded-full animate-[bounce_1s_infinite]" style={{ animationDelay: '0ms' }} />
+              <span className="w-1.5 h-1.5 bg-[#9ca3af] rounded-full animate-[bounce_1s_infinite]" style={{ animationDelay: '150ms' }} />
+              <span className="w-1.5 h-1.5 bg-[#9ca3af] rounded-full animate-[bounce_1s_infinite]" style={{ animationDelay: '300ms' }} />
+            </div>
+          </div>
+        )}
 
         <div ref={messagesEndRef} />
 
