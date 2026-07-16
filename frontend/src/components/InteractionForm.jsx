@@ -39,7 +39,7 @@ export default function InteractionForm() {
   }, []);
 
   useEffect(() => {
-    if (!extractedData || hcps.length === 0) return;
+    if (!extractedData) return;
 
     setForm(prev => {
       let updated = {
@@ -101,6 +101,15 @@ export default function InteractionForm() {
 
         if (matched) {
           updated.hcp_id = matched.id;
+
+          // Automatically append the HCP to the attendees list so it's not just "Jane Smith"
+          if (updated.attendees) {
+            if (!updated.attendees.toLowerCase().includes(matched.name.toLowerCase())) {
+              updated.attendees = `${matched.name}, ${updated.attendees}`;
+            }
+          } else {
+            updated.attendees = matched.name;
+          }
 
           setTimeout(() => {
             dispatch(clearExtractedData());
@@ -385,4 +394,5 @@ export default function InteractionForm() {
 
     </div>
   );
-}
+}// appended to trigger hot reload
+// hot reload

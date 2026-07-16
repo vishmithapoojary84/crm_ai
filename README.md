@@ -1,238 +1,148 @@
-# AI-Powered Pharma CRM Assistant
+<div align="center">
+  <img src="https://via.placeholder.com/150x150?text=AI+CRM" alt="AI-First CRM Logo" width="120" />
 
-An AI-powered CRM assistant for pharmaceutical sales representatives that automates interaction logging using natural language. Users can describe a meeting in plain English, and the AI extracts structured information to automatically populate the CRM form before saving it to the database.
+  # AI-First Pharma CRM Assistant
 
----
+  **Next-Generation Customer Relationship Management for Pharmaceutical Sales**
 
-## Features
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+  [![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://langchain.com/)
+  [![Gemini](https://img.shields.io/badge/Gemini_AI-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)](https://deepmind.google/technologies/gemini/)
 
-- 🤖 AI-powered interaction extraction using LangGraph + LLM
-- 📝 Auto-fills CRM interaction form from natural language
-- 👨‍⚕️ Automatic Healthcare Professional (HCP) matching
-- 📅 Auto-extracts date, time, attendees, meeting type, discussion and summary
-- 💾 Save interactions to PostgreSQL database
-- 🔍 Search and manage HCP records
-- ⚡ FastAPI backend with React frontend
-- 🎯 Tool-calling architecture for reliable structured outputs
-
----
-
-## Tech Stack
-
-### Frontend
-
-- React
-- Redux Toolkit
-- React Select
-- Axios
-- Tailwind CSS
-
-### Backend
-
-- FastAPI
-- SQLAlchemy
-- PostgreSQL
-- LangGraph
-- LangChain
-- Groq LLM
+  <p align="center">
+    <em>Automate interaction logging, eliminate manual data entry, and get AI-powered insights from natural language.</em>
+  </p>
+</div>
 
 ---
 
-## Project Architecture
+## Overview
 
-```
-User
-   │
-   ▼
-React Frontend
-   │
-   ▼
-FastAPI Backend
-   │
-   ▼
-LangGraph Agent
-   │
-   ▼
-Groq LLM
-   │
-   ▼
-Tool Calls
-   │
-   ├── Extract Interaction
-   ├── Search HCP
-   └── Save Interaction
-   │
-   ▼
-PostgreSQL Database
-```
+The **AI-First Pharma CRM Assistant** fundamentally changes how pharmaceutical sales representatives log and manage their Healthcare Professional (HCP) interactions. Instead of manually filling out tedious forms, representatives can simply type or dictate their meeting notes in plain English. 
+
+The AI agent parses the natural language, automatically matches the HCP in the database, extracts key data points (Date, Time, Attendees, Discussion, Summary), and populates the CRM in real-time.
 
 ---
 
-## Workflow
+## See it in Action
 
-1. User describes an interaction in natural language.
-2. AI extracts:
-   - HCP Name
-   - Meeting Type
-   - Date
-   - Time
-   - Attendees
-   - Discussion
-   - Summary
-3. Frontend automatically populates the interaction form.
-4. User reviews the information.
-5. Interaction is saved into PostgreSQL.
+> **Note:** Insert your demo video / GIF here!
+>
+> `![Demo](assets/demo.gif)`
 
 ---
 
-## Example
+## Key Features
 
-### User Input
-
-```
-Met Dr. Rahul Mehta today at 10:30 AM over Zoom with Jane Smith. Discussed the efficacy of Prodo-X and he requested a follow-up next month.
-```
-
-### AI Extracts
-
-```
-HCP: Dr. Rahul Mehta
-Meeting Type: Virtual
-Date: Today's Date
-Time: 10:30 AM
-Attendees: Dr. Rahul Mehta, Jane Smith
-Discussion: Discussed the efficacy of Prodo-X
-Summary: Positive response, requested follow-up next month
-```
-
-The interaction form is automatically populated for user review before saving.
+- **Natural Language Processing (NLP)**: Powered by Gemini & LangGraph to interpret complex conversational logs.
+- **Real-Time Form Auto-Fill**: Watch the CRM magically populate as the AI extracts the context.
+- **Intelligent HCP Matching**: Fuzzy matching automatically identifies the correct doctor from the PostgreSQL database.
+- **Agentic Tool-Calling**: Uses LangChain tool-calling to execute precise state updates without hallucinations.
+- **Interaction History & Follow-ups**: Ask the AI to summarize past interactions and recommend strategic follow-up emails.
 
 ---
 
-## Folder Structure
+## Technology Stack
 
-```
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── api/
-│   ├── features/
-│   └── store/
+| Domain | Technology | Description |
+| :--- | :--- | :--- |
+| **Frontend** | React, Vite, Tailwind CSS, Redux | Lightning-fast SPA with a modern, glassmorphism UI |
+| **Backend** | FastAPI, SQLAlchemy | High-performance Python backend for serving APIs |
+| **Database** | PostgreSQL, SQLite (Dev) | Relational data modeling for HCPs and Interactions |
+| **AI / LLM** | LangGraph, LangChain, Google Gemini | Stateful AI orchestration and function calling |
 
-backend/
-├── api/
-├── models/
-├── schemas/
-├── database/
-├── langgraph/
-├── tools/
-└── main.py
+---
+
+## Architecture Diagram
+
+```mermaid
+graph TD;
+    User([Sales Rep]) -->|Natural Language Note| Frontend[React Frontend];
+    Frontend -->|POST /api/chat| Backend[FastAPI Backend];
+    Backend -->|Initialize State| LangGraph[LangGraph Agent];
+    LangGraph <-->|Prompt + Schema| Gemini[Google Gemini AI];
+    Gemini -->|Tool Call| Tools[Agent Tools];
+    Tools -->|Query & Save| DB[(PostgreSQL Database)];
+    Tools -->|Extracted JSON| Backend;
+    Backend -->|Auto-Populate| Frontend;
 ```
 
 ---
 
-## Installation
+## Getting Started
 
-### Clone Repository
+### Prerequisites
+- Node.js (v18+)
+- Python (3.10+)
+- Google Gemini API Key
 
+### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/your-username/ai-pharma-crm.git
 cd ai-pharma-crm
 ```
 
----
-
-### Backend
-
+### 2. Backend Setup
 ```bash
 cd backend
 
-python -m venv venv
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
-
+# Install dependencies
 pip install -r requirements.txt
 
-uvicorn main:app --reload
+# Environment variables
+cp .env.example .env
+# Edit .env and add your GEMINI_API_KEY=...
+
+# Run the backend
+uvicorn app.main:app --reload
 ```
 
----
-
-### Frontend
-
+### 3. Frontend Setup
 ```bash
 cd frontend
 
+# Install dependencies
 npm install
 
+# Run the development server
 npm run dev
 ```
 
 ---
 
-## Environment Variables
+## Usage Example
 
-Backend `.env`
-
-```
-DATABASE_URL=your_database_url
-
-GROQ_API_KEY=your_groq_api_key
-
-MODEL_NAME=llama-3.1-8b-instant
-```
-
----
-
-## API Endpoints
-
-### Chat
-
-```
-POST /api/chat
-```
-
-Uses the AI agent to extract interaction details.
+1. Open the app in your browser at `http://localhost:5173`.
+2. Navigate to the **AI Assistant** chat panel.
+3. Type a natural language log:
+   > *"Met Dr. Rahul Mehta today at 10:30 AM over Zoom with Jane Smith. Discussed the efficacy of Prodo-X and he requested a follow-up next month."*
+4. Watch the form on the left instantly populate with:
+   - **HCP**: Dr. Rahul Mehta
+   - **Meeting Type**: Virtual
+   - **Time**: 10:30 AM
+   - **Attendees**: Dr. Rahul Mehta, Jane Smith
+   - **Discussion**: Efficacy of Prodo-X
 
 ---
 
-### Healthcare Professionals
+## Roadmap
 
-```
-GET /api/hcps
-```
-
-Returns all HCP records.
-
----
-
-### Interactions
-
-```
-POST /api/interactions
-```
-
-Stores an interaction in the database.
-
----
-
-## Future Improvements
-
-- Voice interaction logging
-- Authentication & authorization
-- Material/sample tracking
-- Calendar integration
-- AI-generated follow-up recommendations
-- Dashboard analytics
-- Advanced HCP search
+- [x] Natural Language Form Population
+- [x] LangGraph Agentic Backend
+- [x] Gemini API Migration
+- [ ] Voice-to-Text Integration (`hospital-voice-agent`)
+- [ ] Automated Calendar Integrations
+- [ ] Sales Analytics Dashboard
 
 ---
 
 ## Author
 
-**Vishmitha Poojary**
-
-MCA Student | Full Stack & AI Developer
+**Vishmitha Poojary**  
+*MCA Student | Full Stack & AI Developer*

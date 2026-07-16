@@ -47,8 +47,13 @@ def chat(request: ChatRequest):
             logger.info(f"TOOL RESPONSE ({msg.name}): {msg.content}")
 
     ai_message = result["messages"][-1]
+    
+    response_text = ai_message.content
+    if isinstance(response_text, list):
+        text_parts = [part["text"] for part in response_text if isinstance(part, dict) and "text" in part]
+        response_text = " ".join(text_parts)
 
     return ChatResponse(
-        response=ai_message.content,
+        response=response_text,
         extracted_data=extracted_data
     )
