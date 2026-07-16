@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://via.placeholder.com/150x150?text=AI+CRM" alt="AI-First CRM Logo" width="120" />
+ 
 
   # AI-First Pharma CRM Assistant
 
